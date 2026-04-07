@@ -1,0 +1,848 @@
+
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>M. Amrullah - Web Developer Portfolio</title>
+    
+    <!-- SEO & Open Graph -->
+    <meta name="description" content="Portfolio M. Amrullah, Web Developer dari Indonesia. Spesialisasi membangun Custom Web App, Mobile-First Design & Integrasi API menggunakan Termux.">
+    <meta name="keywords" content="M. Amrullah, Web Developer, Termux, Frontend Developer, Netlify, Tailwind CSS">
+    <meta property="og:title" content="M. Amrullah | Web Developer">
+    <meta property="og:description" content="Membangun aplikasi web langsung dari perangkat mobile menggunakan ekosistem Termux. Mari berkolaborasi!">
+    <meta property="og:image" content="https://i.ibb.co.com/MyQsNfV5/IMG-20260406-WA0047.jpg"> 
+
+    <!-- JSON-LD (Structured Data untuk Google) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "M. Amrullah",
+      "url": "https://amz-portofolio.netlify.app/",
+      "jobTitle": "Web Developer",
+      "description": "Pelajar dan Web Developer yang coding 100% menggunakan Termux di perangkat mobile.",
+      "sameAs": [
+        "https://instagram.com/jarwo23668",
+        "https://tiktok.com/@287964afg"
+      ]
+    }
+    </script>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- Devicon (Untuk Ikon Tech Stack) -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.15.1/devicon.min.css">
+
+    <!-- Custom Tailwind Config -->
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                    },
+                    colors: {
+                        blue: {
+                            50: '#eff6ff',
+                            100: '#dbeafe',
+                            200: '#bfdbfe',
+                            400: '#60a5fa',
+                            500: '#3b82f6',
+                            600: '#2563eb',
+                            700: '#1d4ed8',
+                        },
+                        darkbg: '#0a0a0a',
+                        darkcard: '#141414'
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        .chat-view-hidden {
+            transform: translateY(100%);
+            opacity: 0;
+            pointer-events: none;
+        }
+        
+        .chat-view-visible {
+            transform: translateY(0);
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .portfolio-hidden {
+            opacity: 0;
+            height: 0;
+            overflow: hidden;
+        }
+
+        /* Loading Dot Animation */
+        .typing-dot {
+            animation: typingBounce 1.4s infinite ease-in-out both;
+        }
+        .typing-dot:nth-child(1) { animation-delay: -0.32s; }
+        .typing-dot:nth-child(2) { animation-delay: -0.16s; }
+        
+        @keyframes typingBounce {
+            0%, 80%, 100% { transform: scale(0); }
+            40% { transform: scale(1); }
+        }
+
+        /* Scrollbar Styling */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background-color: #cbd5e1;
+            border-radius: 10px;
+        }
+        html.dark ::-webkit-scrollbar-thumb {
+            background-color: #333;
+        }
+        
+        /* Float Avatar */
+        .float-avatar {
+            animation: float 6s ease-in-out infinite;
+        }
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+
+        /* Hover Effect pada Tech Icons */
+        .tech-icon {
+            transition: all 0.3s ease;
+        }
+        .tech-icon:hover {
+            transform: translateY(-5px) scale(1.1);
+            filter: drop-shadow(0 0 10px rgba(59, 130, 246, 0.6));
+        }
+
+        /* Scroll Reveal Animation */
+        .reveal { 
+            opacity: 0; 
+            transform: translateY(30px); 
+            transition: all 0.6s ease-out; 
+        }
+        .reveal.active { 
+            opacity: 1; 
+            transform: translateY(0); 
+        }
+
+        /* Typing Cursor Blink */
+        .typing-cursor {
+            display: inline-block;
+            width: 3px;
+            background-color: #3b82f6;
+            margin-left: 2px;
+            animation: blink 1s step-end infinite;
+        }
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+
+        /* Custom Cursor (Desktop Only) */
+        @media (pointer: fine) {
+            body {
+                cursor: default; 
+            }
+            .custom-cursor {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 24px;
+                height: 24px;
+                border: 2px solid rgba(59, 130, 246, 0.8);
+                border-radius: 50%;
+                pointer-events: none;
+                transform: translate(-50%, -50%);
+                transition: width 0.2s, height 0.2s, background-color 0.2s;
+                z-index: 9999;
+                box-shadow: 0 0 15px rgba(59, 130, 246, 0.4);
+            }
+            .custom-cursor.cursor-hover {
+                width: 48px;
+                height: 48px;
+                background-color: rgba(59, 130, 246, 0.1);
+                border-color: rgba(34, 211, 238, 0.8);
+                box-shadow: 0 0 25px rgba(34, 211, 238, 0.6);
+            }
+        }
+    </style>
+</head>
+<body class="bg-gray-50 dark:bg-darkbg text-gray-900 dark:text-gray-100 font-sans selection:bg-blue-200 selection:text-blue-900 dark:selection:bg-blue-900 dark:selection:text-blue-100 overflow-x-hidden relative min-h-screen transition-colors duration-300">
+
+    <!-- Skip Link for Accessibility -->
+    <a href="#main-content" class="absolute -top-16 left-4 bg-blue-600 text-white px-4 py-2 z-50 focus:top-4 transition-all rounded-lg shadow-lg font-medium">Skip to content</a>
+
+    <!-- Custom Cursor Elemen -->
+    <div id="custom-cursor" class="custom-cursor hidden md:block"></div>
+
+    <!-- PORTFOLIO UTAMA -->
+    <div id="portfolio-view" class="transition-all duration-500 ease-in-out opacity-100 min-h-screen relative">
+        
+        <!-- Navbar -->
+        <nav class="fixed top-0 left-0 right-0 z-40 bg-white/80 dark:bg-darkbg/80 backdrop-blur-md border-b border-gray-100 dark:border-gray-800 transition-colors duration-300">
+            <div class="max-w-5xl mx-auto px-6 h-20 flex justify-between items-center">
+                <div class="flex items-center gap-2">
+                    <i data-lucide="zap" class="text-blue-600 dark:text-blue-500 w-6 h-6"></i>
+                    <span class="font-bold text-xl tracking-tight text-gray-900 dark:text-white">WhiteElectric.</span>
+                </div>
+                
+                <div class="flex items-center gap-4 md:gap-6">
+                    <div class="hidden md:flex gap-8 text-sm font-medium text-gray-600 dark:text-gray-300">
+                        <a href="#about" class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Tentang</a>
+                        <a href="#services" class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Layanan</a>
+                        <a href="#projects" class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Karya</a>
+                        <a href="#contact" class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Kontak</a>
+                    </div>
+                    
+                    <button id="theme-toggle" class="p-2 rounded-full bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-yellow-400 hover:ring-2 ring-blue-500 transition-all focus:outline-none" aria-label="Toggle Dark Mode">
+                        <i data-lucide="moon" id="theme-toggle-dark-icon" class="w-5 h-5 hidden"></i>
+                        <i data-lucide="sun" id="theme-toggle-light-icon" class="w-5 h-5 hidden"></i>
+                    </button>
+
+                    <button id="mobile-menu-btn" class="md:hidden p-2 text-gray-600 dark:text-gray-300 focus:outline-none">
+                        <i data-lucide="menu" id="mobile-menu-icon" class="w-6 h-6"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div id="mobile-menu" class="hidden md:hidden bg-white dark:bg-darkcard border-b border-gray-100 dark:border-gray-800 shadow-lg absolute w-full left-0 top-20 flex flex-col p-4 text-center">
+                <a href="#about" class="py-3 text-gray-800 dark:text-gray-200 font-medium hover:text-blue-600 dark:hover:text-blue-400">Tentang</a>
+                <a href="#services" class="py-3 text-gray-800 dark:text-gray-200 font-medium hover:text-blue-600 dark:hover:text-blue-400">Layanan</a>
+                <a href="#projects" class="py-3 text-gray-800 dark:text-gray-200 font-medium hover:text-blue-600 dark:hover:text-blue-400">Karya</a>
+                <a href="#contact" class="py-3 text-gray-800 dark:text-gray-200 font-medium hover:text-blue-600 dark:hover:text-blue-400">Kontak</a>
+            </div>
+        </nav>
+
+        <main id="main-content" class="max-w-5xl mx-auto px-6 pt-32 pb-12 md:pt-40">
+            <!-- Hero Section -->
+            <section class="mb-24 relative reveal" id="about">
+                <div class="absolute top-0 right-0 w-64 h-64 bg-blue-400 dark:bg-blue-600 rounded-full mix-blend-multiply dark:mix-blend-lighten filter blur-[100px] opacity-20 dark:opacity-30 animate-pulse pointer-events-none"></div>
+                
+                <div class="flex flex-col-reverse md:flex-row gap-12 items-center md:items-start justify-between">
+                    <div class="flex-1 text-center md:text-left z-10">
+                        <h1 class="text-5xl md:text-7xl font-extrabold tracking-tighter mb-4 leading-tight text-gray-900 dark:text-white">
+                            Hi, I'm <br />
+                            <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-cyan-500 dark:from-blue-400 dark:to-cyan-300">
+                                M. Amrullah
+                            </span>
+                        </h1>
+                        
+                        <!-- ⌨️ Animasi Mengetik -->
+                        <h2 class="text-xl md:text-3xl text-gray-800 dark:text-gray-200 font-bold mb-6 h-8 md:h-10">
+                            I am a <span id="typed-text" class="text-blue-600 dark:text-blue-400"></span><span class="typing-cursor">&nbsp;</span>
+                        </h2>
+                        
+                        <p class="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mb-10 leading-relaxed mx-auto md:mx-0">
+                            Saya senang membangun aplikasi web yang bersih, cepat, dan fungsional. Fokus saya adalah menciptakan alat-alat yang memudahkan pekerjaan pengguna, mulai dari pengunduh media hingga konverter utilitas, dengan desain yang mengutamakan pengalaman pengguna.
+                        </p>
+                        
+                        <div class="flex flex-wrap gap-4 justify-center md:justify-start">
+                            <a href="#projects" class="bg-gradient-to-r from-blue-600 to-blue-700 text-white px-6 py-3.5 rounded-2xl font-medium hover:from-blue-500 hover:to-blue-600 transition-all flex items-center gap-2 hover:shadow-[0_0_25px_rgba(59,130,246,0.6)] hover:-translate-y-1">
+                                Lihat Karya <i data-lucide="arrow-down" class="w-5 h-5"></i>
+                            </a>
+                            <a href="#" target="_blank" class="bg-transparent border-2 border-blue-600 dark:border-blue-400 text-blue-600 dark:text-blue-400 px-6 py-3.5 rounded-2xl font-medium hover:bg-blue-50 dark:hover:bg-blue-900/30 transition-all flex items-center gap-2 hover:-translate-y-1">
+                                Download CV <i data-lucide="download" class="w-5 h-5"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Profil Image (Animated WebP) -->
+                    <div class="w-48 h-48 md:w-64 md:h-64 relative flex-shrink-0 float-avatar z-10">
+                        <div class="absolute inset-0 bg-gradient-to-tr from-blue-500 to-cyan-300 dark:from-blue-600 dark:to-blue-400 rounded-full blur-xl opacity-40 animate-pulse"></div>
+                        <div class="w-full h-full rounded-full border-4 border-white dark:border-gray-800 shadow-2xl relative overflow-hidden bg-gray-200 dark:bg-gray-800">
+                            <img src="https://i.ibb.co.com/p6tRnCYK/IMG-20260406-153131-570-ezgif-com-video-to-webp-converter.webp" alt="M. Amrullah" class="w-full h-full object-cover" loading="lazy">
+                        </div>
+                        <div class="absolute bottom-2 right-2 bg-white dark:bg-gray-800 px-3 py-1.5 rounded-full border border-gray-100 dark:border-gray-700 shadow-md flex items-center gap-1.5">
+                            <span class="w-2 h-2 rounded-full bg-green-500 dark:bg-green-400 animate-pulse"></span>
+                            <span class="text-xs font-bold text-gray-700 dark:text-gray-300">Available</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Tech Stack Section -->
+            <section id="tech" class="mb-24 relative reveal">
+                <div class="bg-white/50 dark:bg-darkcard/50 backdrop-blur-sm border border-gray-100 dark:border-gray-800 rounded-3xl p-8 md:p-12 shadow-sm text-center">
+                    <h3 class="text-sm font-bold uppercase tracking-widest text-blue-600 dark:text-blue-400 mb-8 flex items-center justify-center gap-2">
+                        <i data-lucide="cpu" class="w-4 h-4"></i> Tech Stack & Tools
+                    </h3>
+                    
+                    <div class="flex flex-wrap justify-center items-center gap-8 md:gap-12 mb-8 text-4xl md:text-5xl text-gray-400 dark:text-gray-500">
+                        <i class="devicon-html5-plain tech-icon hover:text-[#E34F26]"></i>
+                        <i class="devicon-css3-plain tech-icon hover:text-[#1572B6]"></i>
+                        <i class="devicon-javascript-plain tech-icon hover:text-[#F7DF1E]"></i>
+                        <i class="devicon-python-plain tech-icon hover:text-[#3776AB]"></i>
+                        <i class="devicon-nodejs-plain tech-icon hover:text-[#339933]"></i>
+                        <i class="devicon-git-plain tech-icon hover:text-[#F05032]"></i>
+                        <i class="devicon-bash-plain tech-icon hover:text-gray-900 dark:hover:text-white" title="Termux / CLI"></i>
+                    </div>
+
+                    <p class="text-sm md:text-base text-gray-600 dark:text-gray-400 italic bg-gray-50 dark:bg-black px-6 py-3 rounded-full inline-block border border-gray-200 dark:border-gray-800">
+                        "Membangun langsung dari perangkat mobile menggunakan ekosistem <span class="font-bold text-blue-600 dark:text-blue-400">Termux & SPcK</span>."
+                    </p>
+                </div>
+            </section>
+
+            <!-- Services Section -->
+            <section id="services" class="mb-32 reveal">
+                <div class="flex items-center gap-3 mb-10">
+                    <div class="h-[1px] bg-gray-200 dark:bg-gray-800 flex-1"></div>
+                    <h2 class="text-2xl font-bold uppercase tracking-widest text-gray-400 dark:text-gray-500 text-center flex items-center gap-2">
+                        <i data-lucide="layers" class="w-5 h-5"></i> Layanan Saya
+                    </h2>
+                    <div class="h-[1px] bg-gray-200 dark:bg-gray-800 flex-1"></div>
+                </div>
+
+                <div class="grid md:grid-cols-3 gap-6">
+                    <div class="bg-white dark:bg-darkcard border border-gray-100 dark:border-gray-800 p-8 rounded-3xl shadow-sm hover:shadow-[0_0_25px_rgba(59,130,246,0.2)] hover:-translate-y-2 transition-all duration-300">
+                        <div class="w-14 h-14 bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 rounded-2xl flex items-center justify-center mb-6">
+                            <i data-lucide="monitor-smartphone" class="w-7 h-7"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-3">Custom Web App</h3>
+                        <p class="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">Merancang dan membangun aplikasi berbasis web yang fungsional, interaktif, dan sesuai dengan kebutuhan spesifik Anda.</p>
+                    </div>
+                    
+                    <div class="bg-white dark:bg-darkcard border border-gray-100 dark:border-gray-800 p-8 rounded-3xl shadow-sm hover:shadow-[0_0_25px_rgba(34,211,238,0.2)] hover:-translate-y-2 transition-all duration-300">
+                        <div class="w-14 h-14 bg-cyan-50 dark:bg-cyan-900/30 text-cyan-600 dark:text-cyan-400 rounded-2xl flex items-center justify-center mb-6">
+                            <i data-lucide="smartphone" class="w-7 h-7"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-3">Mobile-First Design</h3>
+                        <p class="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">Memastikan antarmuka website terlihat sempurna dan berjalan mulus di perangkat mobile, tablet, hingga desktop.</p>
+                    </div>
+
+                    <div class="bg-white dark:bg-darkcard border border-gray-100 dark:border-gray-800 p-8 rounded-3xl shadow-sm hover:shadow-[0_0_25px_rgba(139,92,246,0.2)] hover:-translate-y-2 transition-all duration-300">
+                        <div class="w-14 h-14 bg-purple-50 dark:bg-purple-900/30 text-purple-600 dark:text-purple-400 rounded-2xl flex items-center justify-center mb-6">
+                            <i data-lucide="webhook" class="w-7 h-7"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-3">API Integration</h3>
+                        <p class="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">Menghubungkan website dengan berbagai sumber data eksternal, layanan pihak ketiga, maupun kecerdasan buatan (AI).</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Projects Section -->
+            <section id="projects" class="mb-32 reveal">
+                <div class="flex items-center gap-3 mb-12">
+                    <div class="h-[1px] bg-gray-200 dark:bg-gray-800 flex-1"></div>
+                    <h2 class="text-2xl font-bold uppercase tracking-widest text-gray-400 dark:text-gray-500 text-center flex items-center gap-2">
+                        <i data-lucide="code" class="w-5 h-5"></i> Live Projects
+                    </h2>
+                    <div class="h-[1px] bg-gray-200 dark:bg-gray-800 flex-1"></div>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+                    <!-- Project 1 -->
+                    <div class="bg-white dark:bg-darkcard border border-gray-100 dark:border-gray-800 rounded-3xl shadow-sm hover:shadow-[0_0_25px_rgba(59,130,246,0.3)] dark:hover:shadow-[0_0_25px_rgba(59,130,246,0.4)] hover:-translate-y-1 hover:border-blue-300 dark:hover:border-blue-500 transition-all duration-300 group overflow-hidden flex flex-col">
+                        <div class="relative h-56 border-b border-gray-100 dark:border-gray-800 overflow-hidden bg-gray-100 dark:bg-black flex-shrink-0">
+                            <div class="absolute top-0 left-0 w-full h-8 bg-white/90 dark:bg-darkbg/90 backdrop-blur-md border-b border-gray-200 dark:border-gray-800 flex items-center px-4 gap-2 z-10">
+                                <div class="w-3 h-3 rounded-full bg-red-400 dark:bg-red-500"></div>
+                                <div class="w-3 h-3 rounded-full bg-yellow-400 dark:bg-yellow-500"></div>
+                                <div class="w-3 h-3 rounded-full bg-green-400 dark:bg-green-500"></div>
+                                <div class="mx-auto flex-1 text-center pr-8">
+                                    <span class="text-[10px] bg-gray-100 dark:bg-gray-800 px-3 py-1 rounded-full text-gray-500 dark:text-gray-400 font-mono">amz-donwloader.netlify.app</span>
+                                </div>
+                            </div>
+                            <img src="https://image.thum.io/get/width/800/crop/800/noanimate/https://amz-donwloader.netlify.app/" 
+                                 alt="TikTok Downloader Preview" loading="lazy"
+                                 class="w-full h-full object-cover object-top pt-8 group-hover:scale-105 transition-transform duration-700 ease-in-out opacity-90 dark:opacity-80 group-hover:opacity-100"
+                                 onerror="this.src='https://images.unsplash.com/photo-1611162617474-5b21e879e113?q=80&w=800&auto=format&fit=crop';">
+                        </div>
+                        <div class="p-8 flex-1 flex flex-col">
+                            <h3 class="text-2xl font-bold mb-3 text-gray-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">TikTok Video Downloader</h3>
+                            <p class="text-gray-600 dark:text-gray-400 mb-6 text-sm leading-relaxed flex-1">
+                                Web utility cepat dan praktis untuk mengunduh video dari TikTok tanpa watermark. Dibangun dengan fokus pada kecepatan dan kemudahan antarmuka.
+                            </p>
+                            <div class="flex items-center justify-between mt-auto pt-4 border-t border-gray-100 dark:border-gray-800">
+                                <div class="flex gap-2">
+                                    <span class="text-[10px] font-bold tracking-wider uppercase px-2.5 py-1 bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 rounded-md">Utility</span>
+                                    <span class="text-[10px] font-bold tracking-wider uppercase px-2.5 py-1 bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 rounded-md">Live</span>
+                                </div>
+                                <a href="https://amz-donwloader.netlify.app/" target="_blank" rel="noopener noreferrer" class="text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 font-medium text-sm flex items-center gap-1 group-hover:underline">
+                                    Visit Site <i data-lucide="external-link" class="w-4 h-4"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Project 2 -->
+                    <div class="bg-white dark:bg-darkcard border border-gray-100 dark:border-gray-800 rounded-3xl shadow-sm hover:shadow-[0_0_25px_rgba(59,130,246,0.3)] dark:hover:shadow-[0_0_25px_rgba(59,130,246,0.4)] hover:-translate-y-1 hover:border-blue-300 dark:hover:border-blue-500 transition-all duration-300 group overflow-hidden flex flex-col">
+                        <div class="relative h-56 border-b border-gray-100 dark:border-gray-800 overflow-hidden bg-gray-100 dark:bg-black flex-shrink-0">
+                            <div class="absolute top-0 left-0 w-full h-8 bg-white/90 dark:bg-darkbg/90 backdrop-blur-md border-b border-gray-200 dark:border-gray-800 flex items-center px-4 gap-2 z-10">
+                                <div class="w-3 h-3 rounded-full bg-red-400 dark:bg-red-500"></div>
+                                <div class="w-3 h-3 rounded-full bg-yellow-400 dark:bg-yellow-500"></div>
+                                <div class="w-3 h-3 rounded-full bg-green-400 dark:bg-green-500"></div>
+                                <div class="mx-auto flex-1 text-center pr-8">
+                                    <span class="text-[10px] bg-gray-100 dark:bg-gray-800 px-3 py-1 rounded-full text-gray-500 dark:text-gray-400 font-mono">amz-image-to-link.netlify.app</span>
+                                </div>
+                            </div>
+                            <img src="https://image.thum.io/get/width/800/crop/800/noanimate/https://amz-image-to-link.netlify.app/" 
+                                 alt="Image to Link Preview" loading="lazy"
+                                 class="w-full h-full object-cover object-top pt-8 group-hover:scale-105 transition-transform duration-700 ease-in-out opacity-90 dark:opacity-80 group-hover:opacity-100"
+                                 onerror="this.src='https://images.unsplash.com/photo-1542626991-cbc4e32524cc?q=80&w=800&auto=format&fit=crop';">
+                        </div>
+                        <div class="p-8 flex-1 flex flex-col">
+                            <h3 class="text-2xl font-bold mb-3 text-gray-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">Image to Link Converter</h3>
+                            <p class="text-gray-600 dark:text-gray-400 mb-6 text-sm leading-relaxed flex-1">
+                                Solusi sederhana untuk mengubah gambar lokal Anda menjadi tautan URL. Sangat berguna bagi developer atau kreator yang membutuhkan URL gambar secara instan.
+                            </p>
+                            <div class="flex items-center justify-between mt-auto pt-4 border-t border-gray-100 dark:border-gray-800">
+                                <div class="flex gap-2">
+                                    <span class="text-[10px] font-bold tracking-wider uppercase px-2.5 py-1 bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 rounded-md">Tool</span>
+                                    <span class="text-[10px] font-bold tracking-wider uppercase px-2.5 py-1 bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 rounded-md">Live</span>
+                                </div>
+                                <a href="https://amz-image-to-link.netlify.app/" target="_blank" rel="noopener noreferrer" class="text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 font-medium text-sm flex items-center gap-1 group-hover:underline">
+                                    Visit Site <i data-lucide="external-link" class="w-4 h-4"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Contact Section -->
+            <section id="contact" class="mb-20 reveal">
+                <div class="bg-gradient-to-br from-blue-600 to-blue-800 rounded-3xl px-6 py-10 md:p-16 shadow-2xl relative overflow-hidden max-w-4xl mx-auto">
+                    <div class="absolute top-0 right-0 w-64 h-64 bg-white opacity-10 rounded-full blur-3xl mix-blend-overlay pointer-events-none"></div>
+                    <div class="absolute bottom-0 left-0 w-40 h-40 bg-cyan-400 opacity-20 rounded-full blur-2xl mix-blend-overlay pointer-events-none"></div>
+                    
+                    <div class="relative z-10 text-center mb-8 md:mb-12">
+                        <h2 class="text-3xl md:text-4xl font-extrabold text-white mb-3 md:mb-4">Mari Berkolaborasi!</h2>
+                        <p class="text-blue-100 max-w-lg mx-auto text-sm md:text-base">
+                            Punya ide project menarik? Kirimkan pesan langsung ke kotak masuk saya atau sapa saya lewat media sosial di bawah.
+                        </p>
+                    </div>
+
+                    <!-- Feedback Form Submit -->
+                    <form action="https://formsubmit.co/yonkounoamz@gmail.com" method="POST" onsubmit="this.querySelector('button[type=submit]').innerHTML = 'Mengirim... <i data-lucide=\'loader-2\' class=\'w-4 h-4 animate-spin\'></i>'; lucide.createIcons();" class="relative z-10 bg-white/10 backdrop-blur-md border border-white/20 p-5 md:p-8 rounded-2xl max-w-2xl mx-auto flex flex-col gap-4 shadow-xl">
+                        <input type="hidden" name="_captcha" value="false">
+                        <input type="hidden" name="_subject" value="Pesan Baru dari Portofolio Web!">
+                        <input type="hidden" name="_next" value="https://amz-portofolio.netlify.app/"> 
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <input type="text" name="Nama" required placeholder="Nama Anda" class="w-full bg-white/5 border border-white/10 text-white placeholder:text-blue-200 px-4 py-3.5 rounded-xl focus:outline-none focus:ring-2 focus:ring-cyan-400 transition-all text-sm md:text-base">
+                            <input type="email" name="Email" required placeholder="Email Anda" class="w-full bg-white/5 border border-white/10 text-white placeholder:text-blue-200 px-4 py-3.5 rounded-xl focus:outline-none focus:ring-2 focus:ring-cyan-400 transition-all text-sm md:text-base">
+                        </div>
+                        
+                        <textarea name="Pesan" required rows="5" placeholder="Tulis pesan Anda di sini..." class="w-full bg-white/5 border border-white/10 text-white placeholder:text-blue-200 px-4 py-3.5 rounded-xl focus:outline-none focus:ring-2 focus:ring-cyan-400 transition-all resize-none text-sm md:text-base"></textarea>
+                        
+                        <button type="submit" class="bg-cyan-400 hover:bg-cyan-300 text-blue-900 font-bold px-6 py-4 rounded-xl md:rounded-2xl transition-all hover:shadow-[0_0_25px_rgba(34,211,238,0.6)] hover:-translate-y-1 mt-2 flex justify-center items-center gap-2 text-sm md:text-base">
+                            Kirim Pesan <i data-lucide="send" class="w-4 h-4"></i>
+                        </button>
+                    </form>
+
+                    <!-- Jejeran Logo Sosial Media -->
+                    <div class="relative z-10 mt-12 pt-8 border-t border-white/10">
+                        <p class="text-blue-200 text-xs md:text-sm font-medium uppercase tracking-wider text-center mb-6">Atau temukan saya di</p>
+                        <div class="flex justify-center items-center gap-5 md:gap-6">
+                            <a href="https://wa.me/6288291975215" target="_blank" class="w-12 h-12 md:w-14 md:h-14 flex items-center justify-center bg-white/10 hover:bg-white/20 border border-white/20 text-white rounded-full transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_0_25px_rgba(74,222,128,0.6)] hover:text-green-400 group" title="WhatsApp">
+                                <i data-lucide="message-circle" class="w-5 h-5 md:w-6 md:h-6 group-hover:scale-110 transition-transform"></i>
+                            </a>
+                            <a href="https://instagram.com/jarwo23668" target="_blank" class="w-12 h-12 md:w-14 md:h-14 flex items-center justify-center bg-white/10 hover:bg-white/20 border border-white/20 text-white rounded-full transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_0_25px_rgba(244,114,182,0.6)] hover:text-pink-400 group" title="Instagram">
+                                <i data-lucide="instagram" class="w-5 h-5 md:w-6 md:h-6 group-hover:scale-110 transition-transform"></i>
+                            </a>
+                            <a href="https://tiktok.com/@287964afg" target="_blank" class="w-12 h-12 md:w-14 md:h-14 flex items-center justify-center bg-white/10 hover:bg-white/20 border border-white/20 text-white rounded-full transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_0_25px_rgba(34,211,238,0.6)] hover:text-cyan-300 group" title="TikTok">
+                                <i data-lucide="play-square" class="w-5 h-5 md:w-6 md:h-6 group-hover:scale-110 transition-transform"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- 🏁 Footer Penutup -->
+        <footer class="border-t border-gray-200 dark:border-gray-800 py-8 mt-10">
+            <div class="max-w-5xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-4 text-gray-500 dark:text-gray-400 text-sm">
+                <p>Dibuat dengan <i data-lucide="zap" class="w-4 h-4 inline text-blue-500 mx-1"></i> oleh <strong class="text-gray-700 dark:text-gray-300">M. Amrullah</strong> &copy; 2026.</p>
+                <p>Powered by <span class="text-blue-600 dark:text-blue-400 font-semibold">Termux & SPcK</span></p>
+            </div>
+        </footer>
+
+    </div>
+
+    <!-- FLOATING ACTION BUTTON -->
+    <button 
+        id="fab-button"
+        class="fixed bottom-6 right-6 md:bottom-10 md:right-10 w-16 h-16 bg-blue-600 dark:bg-blue-600 rounded-full flex items-center justify-center text-white shadow-[0_0_20px_rgba(37,99,235,0.5)] dark:shadow-[0_0_25px_rgba(37,99,235,0.8)] hover:bg-blue-500 hover:scale-110 transition-all duration-300 z-40 group"
+        aria-label="Buka Asisten AI"
+        onclick="toggleView('chat')"
+    >
+        <div class="absolute inset-0 rounded-full bg-blue-400 animate-ping opacity-20 dark:opacity-40"></div>
+        <i data-lucide="bot" class="w-7 h-7 group-hover:animate-pulse"></i>
+    </button>
+
+    <!-- CHATBOT OVERLAY -->
+    <div id="chat-view" class="fixed inset-0 bg-white dark:bg-darkbg z-50 transition-all duration-500 ease-in-out chat-view-hidden flex justify-center">
+        <div class="flex flex-col h-[100dvh] w-full max-w-4xl md:border-x border-gray-100 dark:border-gray-800 shadow-2xl relative bg-white dark:bg-darkbg">
+            
+            <!-- Header Chat -->
+            <header class="px-4 py-4 border-b border-gray-100 dark:border-gray-800 flex items-center justify-between bg-white/80 dark:bg-darkbg/80 backdrop-blur-md z-10">
+                <div class="flex items-center gap-3">
+                    <button 
+                        onclick="toggleView('portfolio')"
+                        class="p-2 -ml-2 text-gray-400 dark:text-gray-500 hover:text-gray-800 dark:hover:text-white hover:bg-gray-50 dark:hover:bg-gray-800 rounded-full transition-colors flex items-center justify-center"
+                    >
+                        <i data-lucide="chevron-left" class="w-6 h-6"></i>
+                    </button>
+                    <div class="flex items-center gap-2">
+                        <div class="relative flex items-center justify-center w-10 h-10 rounded-full bg-blue-50 dark:bg-blue-900/30 border border-blue-100 dark:border-blue-800/50">
+                            <i data-lucide="zap" class="w-5 h-5 text-blue-600 dark:text-blue-400"></i>
+                            <span id="status-indicator" class="absolute bottom-0 right-0 w-3 h-3 rounded-full border-2 border-white dark:border-darkbg bg-green-500"></span>
+                        </div>
+                        <div>
+                            <h2 class="font-bold text-gray-900 dark:text-white leading-tight">AI Assistant</h2>
+                            <p class="text-xs text-blue-600 dark:text-blue-400 font-medium tracking-wide">M. Amrullah Portfolio</p>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Area Pesan (Memiliki aria-live untuk Screen Reader) -->
+            <div id="chat-messages" aria-live="polite" class="flex-1 overflow-y-auto p-4 md:p-6 bg-gray-50/50 dark:bg-[#0f0f0f] space-y-6">
+                <div class="text-center text-xs text-gray-400 dark:text-gray-600 font-medium tracking-wider mb-8">
+                    ENCRYPTED CONNECTION • ELECTRIC <span id="theme-status-text">WHITE</span>
+                </div>
+                <div class="flex justify-start">
+                    <div class="max-w-[85%] md:max-w-[70%] p-4 text-sm leading-relaxed bg-white dark:bg-darkcard text-gray-800 dark:text-gray-200 rounded-3xl rounded-tl-sm border border-blue-100 dark:border-gray-800 shadow-[0_5px_20px_rgba(59,130,246,0.05)] dark:shadow-none">
+                        ⚡ Bzz! Halo, saya AI Assistant M. Amrullah. Mau bahas soal project, tech stack, atau perlu kontak WA/Email Amrullah untuk kolaborasi? Langsung tanyakan saja!
+                    </div>
+                </div>
+            </div>
+
+            <!-- Typing Indicator -->
+            <div id="typing-indicator" class="hidden justify-start px-4 md:px-6 pb-2 bg-gray-50/50 dark:bg-[#0f0f0f]">
+                <div class="bg-white dark:bg-darkcard border border-blue-100 dark:border-gray-800 px-4 py-3 rounded-3xl rounded-tl-sm shadow-[0_5px_20px_rgba(59,130,246,0.05)] dark:shadow-none flex gap-1.5 items-center w-fit">
+                    <span class="w-2 h-2 bg-blue-400 dark:bg-blue-500 rounded-full typing-dot"></span>
+                    <span class="w-2 h-2 bg-blue-400 dark:bg-blue-500 rounded-full typing-dot"></span>
+                    <span class="w-2 h-2 bg-blue-400 dark:bg-blue-500 rounded-full typing-dot"></span>
+                </div>
+            </div>
+
+            <!-- Quick Reply Chips -->
+            <div id="quick-replies" class="flex gap-2 flex-wrap px-4 md:px-6 py-3 bg-white dark:bg-darkbg border-t border-gray-100 dark:border-gray-800">
+                <button onclick="setQuickReply('Boleh minta kontak WA?')" class="text-xs bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 px-4 py-2 rounded-full hover:bg-blue-100 dark:hover:bg-blue-900/50 transition-colors whitespace-nowrap border border-blue-100 dark:border-blue-800">📞 Kontak WA</button>
+                <button onclick="setQuickReply('Apa saja project andalanmu?')" class="text-xs bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 px-4 py-2 rounded-full hover:bg-blue-100 dark:hover:bg-blue-900/50 transition-colors whitespace-nowrap border border-blue-100 dark:border-blue-800">💻 Cek Project</button>
+                <button onclick="setQuickReply('Layanan apa yang disediakan?')" class="text-xs bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 px-4 py-2 rounded-full hover:bg-blue-100 dark:hover:bg-blue-900/50 transition-colors whitespace-nowrap border border-blue-100 dark:border-blue-800">🛠️ Cek Layanan</button>
+            </div>
+
+            <!-- Input Chat -->
+            <div class="p-4 md:p-6 bg-white dark:bg-darkbg border-t border-gray-50 dark:border-gray-900 shrink-0">
+                <form id="chat-form" class="relative flex items-center">
+                    <input
+                        type="text"
+                        id="chat-input"
+                        placeholder="Ketik pesan..."
+                        class="w-full bg-gray-50 dark:bg-darkcard text-gray-900 dark:text-white text-sm px-6 py-4 rounded-full border border-gray-200 dark:border-gray-700 focus:outline-none focus:border-blue-400 dark:focus:border-blue-500 focus:ring-4 focus:ring-blue-50 dark:focus:ring-blue-900/30 transition-all pr-14 disabled:bg-gray-100 dark:disabled:bg-gray-900 disabled:text-gray-400 dark:disabled:text-gray-600"
+                        autocomplete="off"
+                    >
+                    <button 
+                        type="submit" 
+                        id="chat-submit"
+                        disabled
+                        class="absolute right-2 w-10 h-10 bg-blue-600 text-white rounded-full flex items-center justify-center disabled:bg-gray-300 dark:disabled:bg-gray-700 hover:bg-blue-500 hover:shadow-[0_0_20px_rgba(37,99,235,0.6)] transition-all active:scale-95"
+                    >
+                        <i data-lucide="send" class="w-4 h-4 ml-0.5"></i>
+                    </button>
+                </form>
+            </div>
+            
+        </div>
+    </div>
+
+    <script>
+        lucide.createIcons();
+
+        // ----------------------------------------------------
+        // CUSTOM CURSOR LOGIC (Desktop Only)
+        // ----------------------------------------------------
+        const cursor = document.getElementById('custom-cursor');
+        if (window.matchMedia("(pointer: fine)").matches) {
+            document.addEventListener('mousemove', e => {
+                cursor.style.left = e.clientX + 'px';
+                cursor.style.top = e.clientY + 'px';
+            });
+            const interactables = document.querySelectorAll('a, button, input, textarea');
+            interactables.forEach(el => {
+                el.addEventListener('mouseenter', () => cursor.classList.add('cursor-hover'));
+                el.addEventListener('mouseleave', () => cursor.classList.remove('cursor-hover'));
+            });
+        } else {
+            cursor.style.display = 'none'; 
+        }
+
+        // ----------------------------------------------------
+        // TYPING ANIMATION LOGIC
+        // ----------------------------------------------------
+        const textArray = ["Web Developer", "UI/UX Enthusiast", "Terminal Coder"];
+        const typingDelay = 100;
+        const erasingDelay = 50;
+        const newTextDelay = 2000;
+        let textArrayIndex = 0;
+        let charIndex = 0;
+        const typedTextSpan = document.getElementById("typed-text");
+
+        function type() {
+            if (charIndex < textArray[textArrayIndex].length) {
+                typedTextSpan.textContent += textArray[textArrayIndex].charAt(charIndex);
+                charIndex++;
+                setTimeout(type, typingDelay);
+            } else {
+                setTimeout(erase, newTextDelay);
+            }
+        }
+
+        function erase() {
+            if (charIndex > 0) {
+                typedTextSpan.textContent = textArray[textArrayIndex].substring(0, charIndex - 1);
+                charIndex--;
+                setTimeout(erase, erasingDelay);
+            } else {
+                textArrayIndex++;
+                if (textArrayIndex >= textArray.length) textArrayIndex = 0;
+                setTimeout(type, typingDelay + 1100);
+            }
+        }
+
+        document.addEventListener("DOMContentLoaded", function() {
+            if(textArray.length) setTimeout(type, newTextDelay + 250);
+        });
+
+        // ----------------------------------------------------
+        // MOBILE MENU LOGIC
+        // ----------------------------------------------------
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileMenuIcon = document.getElementById('mobile-menu-icon');
+        
+        function toggleMobileMenu() {
+            mobileMenu.classList.toggle('hidden');
+            if(mobileMenu.classList.contains('hidden')){
+                mobileMenuIcon.setAttribute('data-lucide', 'menu');
+            } else {
+                mobileMenuIcon.setAttribute('data-lucide', 'x');
+            }
+            lucide.createIcons();
+        }
+        mobileMenuBtn.addEventListener('click', toggleMobileMenu);
+        document.querySelectorAll('#mobile-menu a').forEach(link => {
+            link.addEventListener('click', toggleMobileMenu);
+        });
+
+        // ----------------------------------------------------
+        // SCROLL REVEAL ANIMATION LOGIC
+        // ----------------------------------------------------
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+        // ----------------------------------------------------
+        // LOGIKA DARK MODE & TEMA
+        // ----------------------------------------------------
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        const themeToggleDarkIcon = document.getElementById('theme-toggle-dark-icon');
+        const themeToggleLightIcon = document.getElementById('theme-toggle-light-icon');
+        const themeStatusText = document.getElementById('theme-status-text');
+
+        function updateThemeIcon(isDark) {
+            if (isDark) {
+                themeToggleLightIcon.classList.remove('hidden');
+                themeToggleDarkIcon.classList.add('hidden');
+                if(themeStatusText) themeStatusText.textContent = "DARK";
+            } else {
+                themeToggleLightIcon.classList.add('hidden');
+                themeToggleDarkIcon.classList.remove('hidden');
+                if(themeStatusText) themeStatusText.textContent = "WHITE";
+            }
+        }
+
+        if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+            updateThemeIcon(true);
+        } else {
+            document.documentElement.classList.remove('dark');
+            updateThemeIcon(false);
+        }
+
+        themeToggleBtn.addEventListener('click', function() {
+            themeToggleDarkIcon.classList.toggle('hidden');
+            themeToggleLightIcon.classList.toggle('hidden');
+
+            if (localStorage.getItem('color-theme')) {
+                if (localStorage.getItem('color-theme') === 'light') {
+                    document.documentElement.classList.add('dark');
+                    localStorage.setItem('color-theme', 'dark');
+                    if(themeStatusText) themeStatusText.textContent = "DARK";
+                } else {
+                    document.documentElement.classList.remove('dark');
+                    localStorage.setItem('color-theme', 'light');
+                    if(themeStatusText) themeStatusText.textContent = "WHITE";
+                }
+            } else {
+                if (document.documentElement.classList.contains('dark')) {
+                    document.documentElement.classList.remove('dark');
+                    localStorage.setItem('color-theme', 'light');
+                    if(themeStatusText) themeStatusText.textContent = "WHITE";
+                } else {
+                    document.documentElement.classList.add('dark');
+                    localStorage.setItem('color-theme', 'dark');
+                    if(themeStatusText) themeStatusText.textContent = "DARK";
+                }
+            }
+        });
+
+        // ----------------------------------------------------
+        // LOGIKA CHATBOT & INTEGRASI SERVERLESS API NETLIFY
+        // ----------------------------------------------------
+        const portfolioView = document.getElementById('portfolio-view');
+        const chatView = document.getElementById('chat-view');
+        const fabButton = document.getElementById('fab-button');
+        const chatInput = document.getElementById('chat-input');
+        const chatSubmit = document.getElementById('chat-submit');
+        const chatMessages = document.getElementById('chat-messages');
+        const chatForm = document.getElementById('chat-form');
+        const typingIndicator = document.getElementById('typing-indicator');
+        const quickReplies = document.getElementById('quick-replies');
+
+        // History awal hanya untuk render, nanti dipotong saat kirim ke backend
+        let messageHistory = [
+            { role: 'assistant', content: '⚡ Bzz! Halo, saya AI Assistant M. Amrullah. Mau bahas soal project, tech stack, atau perlu kontak WA/Email Amrullah untuk kolaborasi? Langsung tanyakan saja!' }
+        ];
+
+        function toggleView(view) {
+            if (view === 'chat') {
+                portfolioView.classList.add('portfolio-hidden');
+                fabButton.classList.add('hidden');
+                chatView.classList.remove('chat-view-hidden');
+                chatView.classList.add('chat-view-visible');
+                setTimeout(() => chatInput.focus(), 500);
+            } else {
+                chatView.classList.remove('chat-view-visible');
+                chatView.classList.add('chat-view-hidden');
+                setTimeout(() => {
+                    portfolioView.classList.remove('portfolio-hidden');
+                    fabButton.classList.remove('hidden');
+                }, 300);
+            }
+        }
+
+        function validateInput() {
+            chatSubmit.disabled = chatInput.value.trim() === '';
+        }
+        chatInput.addEventListener('input', validateInput);
+
+        function setQuickReply(text) {
+            chatInput.value = text;
+            validateInput();
+            chatInput.focus();
+        }
+
+        function scrollToBottom() {
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        function appendMessageToDOM(role, content) {
+            const msgDiv = document.createElement('div');
+            msgDiv.className = `flex ${role === 'user' ? 'justify-end' : 'justify-start'}`;
+            
+            const bubbleClasses = role === 'user'
+                ? 'bg-blue-600 text-white rounded-3xl rounded-tr-sm shadow-md'
+                : 'bg-white dark:bg-darkcard text-gray-800 dark:text-gray-200 rounded-3xl rounded-tl-sm border border-blue-100 dark:border-gray-800 shadow-[0_5px_20px_rgba(59,130,246,0.05)] dark:shadow-none';
+            
+            let formattedContent = content;
+            if (role === 'assistant') {
+                const urlRegex = /(https?:\/\/[^\s]+)/g;
+                formattedContent = content.replace(urlRegex, function(url) {
+                    return `<a href="${url}" target="_blank" class="text-blue-500 dark:text-blue-400 hover:underline font-medium break-all">${url}</a>`;
+                });
+                formattedContent = formattedContent.replace(/\n/g, '<br>');
+            }
+            
+            msgDiv.innerHTML = `<div class="max-w-[85%] md:max-w-[70%] p-4 text-sm leading-relaxed ${bubbleClasses}">${formattedContent}</div>`;
+            chatMessages.appendChild(msgDiv);
+            scrollToBottom();
+        }
+
+        // 🔥 FUNGSI BARU UNTUK MEMANGGIL NETLIFY FUNCTIONS 🔥
+        async function fetchGroqChat(userMessage) {
+            try {
+                // history mengambil percakapan sebelumnya TANPA pesan user yang baru di-push
+                const history = messageHistory.slice(0, -1);
+
+                const response = await fetch('/.netlify/functions/chat', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        message: userMessage,
+                        history: history
+                    })
+                });
+
+                if (!response.ok) throw new Error('Gagal menghubungi server lokal (Netlify Function)');
+                
+                const data = await response.json();
+                
+                if (data.error) throw new Error(data.error);
+
+                // Backend mengembalikan { reply: "teks dari AI..." }
+                return data.reply;
+
+            } catch (error) {
+                console.error("Chat Error:", error);
+                return `❌ Bzz! Terjadi gangguan sirkuit: ${error.message}.`;
+            }
+        }
+
+        chatForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const userText = chatInput.value.trim();
+            if (!userText) return;
+
+            quickReplies.style.display = 'none';
+
+            chatInput.value = '';
+            chatInput.disabled = true;
+            chatSubmit.disabled = true;
+            
+            messageHistory.push({ role: 'user', content: userText });
+            appendMessageToDOM('user', userText);
+
+            typingIndicator.classList.remove('hidden');
+            typingIndicator.classList.add('flex');
+            scrollToBottom();
+
+            // Panggil API lewat Serverless
+            const aiResponseText = await fetchGroqChat(userText);
+
+            typingIndicator.classList.add('hidden');
+            typingIndicator.classList.remove('flex');
+
+            messageHistory.push({ role: 'assistant', content: aiResponseText });
+            appendMessageToDOM('assistant', aiResponseText);
+
+            chatInput.disabled = false;
+            chatInput.focus();
+            validateInput();
+        });
+    </script>
+</body>
+</html>
